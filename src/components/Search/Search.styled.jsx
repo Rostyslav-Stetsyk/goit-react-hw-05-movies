@@ -1,13 +1,18 @@
 import styled from '@emotion/styled';
 
+export const SearchWrapper = styled.div`
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+`;
+
 export const SearchForm = styled.form`
   display: flex;
   position: relative;
-  width: 390px;
-  background: #f5f6fa;
+  width: calc(100vw - 60px);
   border: 0;
   outline: 0;
-  padding: 22px 18px;
+  padding: 10px 18px;
 `;
 
 export const SearchInput = styled.input`
@@ -47,5 +52,30 @@ export const SearchButton = styled.button`
   :active {
     background: #7f8ff4;
     box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const SearchListMovie = styled.ul`
+  display: grid;
+  width: 396px;
+  grid-template-columns: repeat(auto-fill, min(300px));
+  grid-gap: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 48px 48px 48px 48px;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+  @media (min-width: 712px) {
+    width: 712px;
+  }
+  @media (min-width: 1028px) {
+    width: 1028px;
+  }
+  @media (min-width: 1344px) {
+    width: 1344px;
+  }
+  @media (min-width: 1660px) {
+    width: 1660px;
   }
 `;
