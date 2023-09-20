@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 export const MovieDetailsWrapper = styled.div`
   padding: 0 30px;
   padding-top: 120px;
+  max-width: 1660px;
+  margin: 0 auto;
 `;
 
 export const MovieDetailsSection = styled.section`

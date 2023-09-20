@@ -1,11 +1,14 @@
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 
 export const MoviesWrapper = styled.div`
   padding: 0 30px;
   padding-top: 120px;
+  max-width: 1660px;
+  margin: 0 auto;
 `;
 
-export const GetBackButton = styled.button`
+export const GetBackButton = styled(Link)`
   display: inline-block;
   background: transparent;
   color: white;

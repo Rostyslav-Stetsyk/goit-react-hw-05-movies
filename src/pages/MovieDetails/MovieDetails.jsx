@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getDetailsMovie } from 'api';
 import {
@@ -15,6 +15,8 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
+
+  const location = useLocation();
 
   const [img, setImg] = useState('');
   const [title, setTitle] = useState('');
@@ -38,7 +40,7 @@ export const MovieDetails = () => {
 
   return (
     <MovieDetailsWrapper>
-      <GetBackButton>
+      <GetBackButton to={location?.state?.from ?? '/'}>
         <AiOutlineArrowLeft />
       </GetBackButton>
       <MovieDetailsSection>
