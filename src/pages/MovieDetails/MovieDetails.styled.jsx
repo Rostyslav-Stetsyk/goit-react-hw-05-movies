@@ -6,6 +6,7 @@ export const MovieDetailsWrapper = styled.div`
 `;
 
 export const MovieDetailsSection = styled.section`
+  margin-top: 30px;
   display: flex;
   gap: 30px;
 `;

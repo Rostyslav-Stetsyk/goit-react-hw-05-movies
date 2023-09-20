@@ -10,6 +10,8 @@ import {
   MovieTitle,
   SectionAdditional,
 } from './MovieDetails.styled';
+import { GetBackButton } from 'pages/Movies/Movies.styled';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
@@ -22,13 +24,12 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     const getDetails = async () => {
-      const resp = await getDetailsMovie(movieId);
+      const resp = await getDetailsMovie(movieId, '');
       setImg(resp.poster_path);
       setTitle(resp.title);
       setScore(resp.vote_average);
       setOverview(resp.overview);
       setGenres(resp.genres);
-      console.log(resp);
     };
     try {
       getDetails();
@@ -37,6 +38,9 @@ export const MovieDetails = () => {
 
   return (
     <MovieDetailsWrapper>
+      <GetBackButton>
+        <AiOutlineArrowLeft />
+      </GetBackButton>
       <MovieDetailsSection>
         <img
           width="300px"

@@ -18,8 +18,8 @@ export const getAllTrandingMovie = async (page, signal) => {
     return resp.data
 }
 
-export const getDetailsMovie = async (id) => {
-  const resp = await axios.get(`/movie/${id}`, {
+export const getDetailsMovie = async (id, detailsType) => {
+  const resp = await axios.get(`/movie/${id}${detailsType}`, {
       params: {
           language: 'en-US',
       },
