@@ -6,10 +6,13 @@ export const Home = () => {
   return (
     <>
       <HeaderStyled>
-        <HomeLink to="/" state={{ from: location }}>
+        <HomeLink to="/goit-react-hw-05-movies" state={{ from: location }}>
           MovieHub
         </HomeLink>
-        <SearchLink to="/movies" state={{ from: location }}>
+        <SearchLink
+          to="/goit-react-hw-05-movies/movies"
+          state={{ from: location }}
+        >
           Search
         </SearchLink>
       </HeaderStyled>

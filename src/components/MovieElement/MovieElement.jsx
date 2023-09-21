@@ -5,9 +5,16 @@ export const MovieElement = ({ id, poster, name }) => {
   const location = useLocation();
   return (
     <ListMovieEl>
-      <Link to={'/movies/' + id} state={{ from: location }}>
+      <Link
+        to={'/goit-react-hw-05-movies/movies/' + id}
+        state={{ from: location }}
+      >
         <img
-          src={`https://image.tmdb.org/t/p/w300${poster}`}
+          src={
+            poster
+              ? `https://image.tmdb.org/t/p/w300${poster}`
+              : `https://i.imgur.com/GhqsTtz.jpg;`
+          }
           alt={name}
           width="300px"
           height="450px"

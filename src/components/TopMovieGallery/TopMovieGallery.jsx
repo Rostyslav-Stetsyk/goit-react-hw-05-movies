@@ -5,7 +5,7 @@ import { Loader } from 'components/Loader/Loader';
 import { MovieElement } from 'components/MovieElement/MovieElement';
 import { ListMovie } from './TopMovieGallery.styled';
 
-export const TopMovieGallery = () => {
+const TopMovieGallery = () => {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -16,10 +16,6 @@ export const TopMovieGallery = () => {
   };
 
   useEffect(() => {
-    if (controllerRef.current) {
-      controllerRef.current.abort();
-    }
-
     const fetchMovies = async () => {
       try {
         controllerRef.current = new AbortController();
@@ -32,6 +28,8 @@ export const TopMovieGallery = () => {
     };
 
     fetchMovies();
+
+    return () => controllerRef.current.abort();
   }, [page]);
 
   return (
@@ -63,3 +61,5 @@ export const TopMovieGallery = () => {
     </>
   );
 };
+
+export default TopMovieGallery;

@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const MAIN_DOMEN = 'https://api.themoviedb.org/3'
 axios.defaults.baseURL = `${MAIN_DOMEN}`;
 
@@ -18,19 +17,20 @@ export const getAllTrandingMovie = async (page, signal) => {
     return resp.data
 }
 
-export const getDetailsMovie = async (id, detailsType) => {
+export const getDetailsMovie = async (id, signal, detailsType) => {
   const resp = await axios.get(`/movie/${id}${detailsType}`, {
       params: {
           language: 'en-US',
       },
       headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NjgxOTRjMzU0NzdmMGYwYjkxNjU3N2I3ZTkwNzNhYiIsInN1YiI6IjY0YjAzY2NlZDQwZDRjMDBjNzA0MTU4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WuondqTspR6BFbUiN9ERo34V_vX6Uz8qDXlYw0f-B54'
-      },
+    },
+      signal
     })
     return resp.data
 }
 
-export const getMovieByQuery = async (query) => {
+export const getMovieByQuery = async (query, signal) => {
   const resp = await axios.get(`search/movie`, {
       params: {
       language: 'en-US',
@@ -39,7 +39,8 @@ export const getMovieByQuery = async (query) => {
       },
       headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NjgxOTRjMzU0NzdmMGYwYjkxNjU3N2I3ZTkwNzNhYiIsInN1YiI6IjY0YjAzY2NlZDQwZDRjMDBjNzA0MTU4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WuondqTspR6BFbUiN9ERo34V_vX6Uz8qDXlYw0f-B54'
-      },
+    },
+    signal
     })
     return resp.data
 }

@@ -3,7 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { GetBackButton, MoviesWrapper } from './Movies.styled';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-export const Movies = () => {
+const Movies = () => {
   const location = useLocation();
 
   return (
@@ -16,3 +16,5 @@ export const Movies = () => {
     </MoviesWrapper>
   );
 };
+
+export default Movies;

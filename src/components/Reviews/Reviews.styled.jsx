@@ -5,6 +5,8 @@ export const ReviewsList = styled.ul`
   flex-direction: column;
   gap: 15px;
   margin-top: 30px;
+  max-height: 640px;
+  overflow-y: scroll;
 `;
 
 export const ReviewEl = styled.li`

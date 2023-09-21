@@ -1,21 +1,29 @@
 import { getDetailsMovie } from 'api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CastList } from './Cast.styled';
 
-export const Cast = () => {
+const Cast = () => {
+  const controllerRef = useRef();
   const { movieId } = useParams();
 
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
     const getDetails = async () => {
-      const resp = await getDetailsMovie(movieId, '/credits');
-      setCast(resp.cast);
+      try {
+        controllerRef.current = new AbortController();
+        const signal = controllerRef.current.signal;
+
+        const resp = await getDetailsMovie(movieId, signal, '/credits');
+        setCast(resp.cast);
+      } catch {}
     };
-    try {
-      getDetails();
-    } catch {}
+
+    getDetails();
+
+    return () => controllerRef.current.abort();
   }, [movieId]);
 
   return (
@@ -23,7 +31,11 @@ export const Cast = () => {
       {cast.map(el => (
         <li key={el.id}>
           <img
-            src={`https://image.tmdb.org/t/p/w200${el.profile_path}`}
+            src={
+              el.profile_path
+                ? `https://image.tmdb.org/t/p/w200${el.profile_path}`
+                : `https://i.imgur.com/GhqsTtz.jpg`
+            }
             alt={el.name}
             width="200px"
             height="300px"
@@ -35,3 +47,5 @@ export const Cast = () => {
     </CastList>
   );
 };
+
+export default Cast;

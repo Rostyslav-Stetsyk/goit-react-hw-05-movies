@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { getMovieByQuery } from 'api';
 import { MovieElement } from 'components/MovieElement/MovieElement';
@@ -12,18 +12,31 @@ import {
 } from './Search.styled';
 
 export const Search = () => {
-  const [query, setQuery] = useState('');
+  const controllerRef = useRef();
+
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+    if (!searchParams) return;
     const getMovieList = async () => {
-      const movieList = await getMovieByQuery(searchParams.get('query'));
-      setMovies(movieList.results);
+      try {
+        controllerRef.current = new AbortController();
+        const signal = controllerRef.current.signal;
+
+        const movieList = await getMovieByQuery(
+          searchParams.get('query'),
+          signal
+        );
+        setMovies(movieList.results);
+      } catch {}
     };
-    try {
-      getMovieList();
-    } catch {}
+
+    getMovieList();
+
+    return () => controllerRef.current.abort();
   }, [searchParams]);
 
   return (

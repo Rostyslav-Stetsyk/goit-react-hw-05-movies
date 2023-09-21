@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getDetailsMovie } from 'api';
 import {
   MovieAdditionalTitle,
@@ -13,10 +13,11 @@ import {
 import { GetBackButton } from 'pages/Movies/Movies.styled';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
 
   const location = useLocation();
+  const controllerRef = useRef();
 
   const [img, setImg] = useState('');
   const [title, setTitle] = useState('');
@@ -25,29 +26,40 @@ export const MovieDetails = () => {
   const [genres, setGenres] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
     const getDetails = async () => {
-      const resp = await getDetailsMovie(movieId, '');
-      setImg(resp.poster_path);
-      setTitle(resp.title);
-      setScore(resp.vote_average);
-      setOverview(resp.overview);
-      setGenres(resp.genres);
+      try {
+        controllerRef.current = new AbortController();
+        const signal = controllerRef.current.signal;
+
+        const resp = await getDetailsMovie(movieId, signal, '');
+        setImg(resp.poster_path);
+        setTitle(resp.title);
+        setScore(resp.vote_average);
+        setOverview(resp.overview);
+        setGenres(resp.genres);
+      } catch {}
     };
-    try {
-      getDetails();
-    } catch {}
+
+    getDetails();
+
+    return () => controllerRef.current.abort();
   }, [movieId]);
 
   return (
     <MovieDetailsWrapper>
-      <GetBackButton to={location?.state?.from ?? '/'}>
+      <GetBackButton to={location?.state?.from ?? '/goit-react-hw-05-movies'}>
         <AiOutlineArrowLeft />
       </GetBackButton>
       <MovieDetailsSection>
         <img
           width="300px"
           height="450px"
-          src={`https://image.tmdb.org/t/p/w300${img}`}
+          src={
+            img
+              ? `https://image.tmdb.org/t/p/w300${img}`
+              : `https://i.imgur.com/GhqsTtz.jpg`
+          }
           alt={title}
         />
         <div>
@@ -61,10 +73,14 @@ export const MovieDetails = () => {
       </MovieDetailsSection>
       <SectionAdditional>
         <MovieAdditionalTitle>Additional information</MovieAdditionalTitle>
-        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+        <Link to={`/goit-react-hw-05-movies/movies/${movieId}/cast`}>Cast</Link>
+        <Link to={`/goit-react-hw-05-movies/movies/${movieId}/reviews`}>
+          Reviews
+        </Link>
       </SectionAdditional>
       <Outlet />
     </MovieDetailsWrapper>
   );
 };
+
+export default MovieDetails;

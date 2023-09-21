@@ -1,21 +1,29 @@
 import { getDetailsMovie } from 'api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReviewEl, ReviewTitle, ReviewsList } from './Reviews.styled';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
+  const controllerRef = useRef();
 
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
+    if (!movieId) return;
     const getDetails = async () => {
-      const resp = await getDetailsMovie(movieId, '/reviews');
-      setReviews(resp.results);
+      try {
+        controllerRef.current = new AbortController();
+        const signal = controllerRef.current.signal;
+
+        const resp = await getDetailsMovie(movieId, signal, '/reviews');
+        setReviews(resp.results);
+      } catch {}
     };
-    try {
-      getDetails();
-    } catch {}
+
+    getDetails();
+
+    return () => controllerRef.current.abort();
   }, [movieId]);
 
   return (
@@ -33,3 +41,5 @@ export const Reviews = () => {
     </ReviewsList>
   );
 };
+
+export default Reviews;
