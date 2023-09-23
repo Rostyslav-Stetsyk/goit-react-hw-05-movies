@@ -73,8 +73,16 @@ const MovieDetails = () => {
       </MovieDetailsSection>
       <SectionAdditional>
         <MovieAdditionalTitle>Additional information</MovieAdditionalTitle>
-        <Link to={`/goit-react-hw-05-movies/movies/${movieId}/cast`}>Cast</Link>
-        <Link to={`/goit-react-hw-05-movies/movies/${movieId}/reviews`}>
+        <Link
+          to={`/goit-react-hw-05-movies/movies/${movieId}/cast`}
+          state={{ from: location.state.from }}
+        >
+          Cast
+        </Link>
+        <Link
+          to={`/goit-react-hw-05-movies/movies/${movieId}/reviews`}
+          state={{ from: location.state.from }}
+        >
           Reviews
         </Link>
       </SectionAdditional>
