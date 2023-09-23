@@ -5,12 +5,16 @@ export const HeaderStyled = styled.header`
   position: fixed;
   z-index: 1;
   width: 100vw;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 30px 30px;
   background-color: #f5f6fa;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  max-width: 1660px;
 `;
 
 export const HomeLink = styled(Link)`
@@ -50,4 +54,8 @@ export const SearchLink = styled(Link)`
   :active {
     color: #7f8ff4;
   }
+`;
+
+export const HeightHeader = styled.div`
+  height: 100px;
 `;

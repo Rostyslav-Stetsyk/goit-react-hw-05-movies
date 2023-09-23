@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-export const ListMovie = styled.ul`
+export const ListMovieWrapper = styled.ul`
   display: grid;
   width: 396px;
   grid-template-columns: repeat(auto-fill, min(300px));
   grid-gap: 16px;
   margin-top: 0;
   margin-bottom: 0;
-  padding: 160px 48px 48px 48px;
+  padding: 48px 48px 48px 48px;
   list-style: none;
   margin-left: auto;
   margin-right: auto;

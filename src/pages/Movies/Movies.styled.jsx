@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const MoviesWrapper = styled.div`
   padding: 0 30px;
-  padding-top: 120px;
+  padding-top: 20px;
   max-width: 1660px;
   margin: 0 auto;
 `;

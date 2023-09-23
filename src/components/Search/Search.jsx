@@ -2,14 +2,13 @@ import { useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { getMovieByQuery } from 'api';
-import { MovieElement } from 'components/MovieElement/MovieElement';
 import {
   SearchButton,
   SearchForm,
   SearchInput,
-  SearchListMovie,
   SearchWrapper,
 } from './Search.styled';
+import { ListMovie } from 'components/ListMovie/ListMovie';
 
 export const Search = () => {
   const controllerRef = useRef();
@@ -60,16 +59,7 @@ export const Search = () => {
           </SearchButton>
         </SearchForm>
       </SearchWrapper>
-      <SearchListMovie>
-        {movies.map(el => (
-          <MovieElement
-            key={el.id}
-            id={el.id}
-            poster={el.poster_path}
-            name={el.title}
-          />
-        ))}
-      </SearchListMovie>
+      <ListMovie movieArr={movies} />
     </>
   );
 };

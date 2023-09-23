@@ -26,7 +26,7 @@ const Cast = () => {
     return () => controllerRef.current.abort();
   }, [movieId]);
 
-  return (
+  return cast.length ? (
     <CastList>
       {cast.map(el => (
         <li key={el.id}>
@@ -45,6 +45,8 @@ const Cast = () => {
         </li>
       ))}
     </CastList>
+  ) : (
+    <p>No information about cast</p>
   );
 };
 

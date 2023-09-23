@@ -26,7 +26,7 @@ const Reviews = () => {
     return () => controllerRef.current.abort();
   }, [movieId]);
 
-  return (
+  return reviews.length ? (
     <ReviewsList>
       {reviews.map(el => {
         const timestamp = new Date(el.created_at);
@@ -39,6 +39,8 @@ const Reviews = () => {
         );
       })}
     </ReviewsList>
+  ) : (
+    <p>No information about reviews</p>
   );
 };
 
